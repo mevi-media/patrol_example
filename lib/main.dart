@@ -16,7 +16,6 @@ class ElementA extends StatelessWidget {
         Text(
           'Element A',
         ),
-        // SizedBox(height: 24)
       ],
     );
   }

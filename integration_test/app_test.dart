@@ -18,7 +18,7 @@ void main() {
 
     // let's toggle it and Element B should be visible
     await $(Keys.button).tap();
-    await $(Keys.elementB).waitUntilVisible();
+    await $(Keys.elementB).waitUntilVisible(); // <-- FAILS HERE
     expect($(Keys.elementB).visible, equals(true));
 
     // let's toggle it again and Element A should be visible but an error will be thrown
@@ -30,5 +30,63 @@ void main() {
     await $(Keys.button).tap();
     await $(Keys.elementB).waitUntilVisible();
     expect($(Keys.elementB).visible, equals(true));
+  });
+
+  patrolTest('toggle Element A and B by their Class',
+      config: const PatrolTesterConfig(
+        printLogs: true,
+        settlePolicy: SettlePolicy.trySettle,
+      ),
+      framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
+      ($) async {
+    await $.pumpWidgetAndSettle(const MyApp());
+
+    // Element A is visible by default.
+    await $(ElementA).waitUntilVisible();
+    expect($(ElementA).visible, equals(true));
+
+    // let's toggle it and Element B should be visible
+    await $(Keys.button).tap();
+    await $(ElementB).waitUntilVisible(); // <-- FAILS HERE
+    expect($(ElementB).visible, equals(true));
+
+    // let's toggle it again and Element A should be visible but an error will be thrown
+    await $(Keys.button).tap();
+    await $(ElementA).waitUntilVisible();
+    expect($(ElementA).visible, equals(true));
+
+    // let's toggle it and Element B should be visible
+    await $(Keys.button).tap();
+    await $(ElementB).waitUntilVisible();
+    expect($(ElementB).visible, equals(true));
+  });
+
+  patrolTest('toggle Element A and B by their Text',
+      config: const PatrolTesterConfig(
+        printLogs: true,
+        settlePolicy: SettlePolicy.trySettle,
+      ),
+      framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
+      ($) async {
+    await $.pumpWidgetAndSettle(const MyApp());
+
+    // Element A is visible by default.
+    await $('Element A').waitUntilVisible();
+    expect($('Element A').visible, equals(true));
+
+    // let's toggle it and Element B should be visible
+    await $(Keys.button).tap();
+    await $('Element B').waitUntilVisible();
+    expect($('Element B').visible, equals(true));
+
+    // let's toggle it again and Element A should be visible but an error will be thrown
+    await $(Keys.button).tap();
+    await $('Element A').waitUntilVisible();
+    expect($('Element A').visible, equals(true));
+
+    // let's toggle it and Element B should be visible
+    await $(Keys.button).tap();
+    await $('Element B').waitUntilVisible();
+    expect($('Element B').visible, equals(true));
   });
 }

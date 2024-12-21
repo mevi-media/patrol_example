@@ -1,16 +1,7 @@
 # patrol_example
 
-A new Flutter project.
+An Example to reproduce the `waitUntilVisible()` bug in Patrol.
 
-## Getting Started
+Testing `waitUntilVisible()` on a Widget by it's **Key** or by it's **Class** will fail if the Widget contains a Column with a SizedBox. Remove the SizedBox, the Column can be maintained, and the Test will pass.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If you test it by it's **Text** content it will also pass.
