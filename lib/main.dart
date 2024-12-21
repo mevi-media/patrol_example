@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:patrol_example/state.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +16,7 @@ class ElementA extends StatelessWidget {
         Text(
           'Element A',
         ),
-        SizedBox(height: 24)
+        // SizedBox(height: 24)
       ],
     );
   }
@@ -64,14 +62,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  late final MyState state;
-
+class MyHomePage extends StatefulWidget {
   MyHomePage({
     super.key,
-  }) {
-    state = MyState();
-  }
+  });
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  bool showElementA = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(height: 16),
             OutlinedButton(
                 key: Keys.button,
-                onPressed: state.toggleElementA,
+                onPressed: toggleElement,
                 child: const Text('Toggle Elements')),
           ],
         ),
@@ -97,9 +98,13 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _result() {
-    return Observer(builder: (context) {
-      return state.showElementA ? ElementA() : ElementB();
+  void toggleElement() {
+    setState(() {
+      showElementA = !showElementA;
     });
+  }
+
+  Widget _result() {
+    return showElementA ? ElementA() : ElementB();
   }
 }
